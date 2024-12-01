@@ -44,7 +44,7 @@ namespace Oculus.Interaction
 
         private void HandleStateChange(InteractableStateChangeArgs args)
         {
-            if (args.NewState == InteractableState.Hover && OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger))
+            if (args.NewState == InteractableState.Select)
             {
                 RemoveObject();
             }
