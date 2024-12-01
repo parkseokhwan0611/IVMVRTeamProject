@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Seokhwan/SeokhwanScene.unity
     guid: 9884eeb4be68d204f89bd82fec97e2b8
+  - enabled: 1
+    path: Assets/Seokhwan/TestScene.unity
+    guid: d6a1b34c36f4afd4d80901e2bb54e9d8
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 71b02065c213c05468c51b6dfe86c2e4, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 10ff51618c5477c4494dae3371213da5, type: 2}
