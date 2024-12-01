@@ -11,11 +11,6 @@ namespace Oculus.Interaction
         [Tooltip("The interactable to monitor for ray interactions.")]
         [SerializeField, Interface(typeof(IInteractableView))]
         private UnityEngine.Object _interactableView;
-
-        [Tooltip("The input used to confirm the removal action.")]
-        [SerializeField]
-        private string _triggerButton = "Fire1";
-
         private IInteractableView InteractableView;
         private bool _started = false;
 
