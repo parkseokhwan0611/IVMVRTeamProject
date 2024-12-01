@@ -14,6 +14,7 @@ namespace Oculus.Interaction
         private IInteractableView InteractableView;
         private bool _started = false;
         public GameObject fireExtinguisher;
+        public GameObject ray;
 
         protected virtual void Awake()
         {
@@ -55,6 +56,7 @@ namespace Oculus.Interaction
         {
             Destroy(gameObject);
             fireExtinguisher.SetActive(true);
+            ray.SetActive(false);
         }
 
         #region Inject
