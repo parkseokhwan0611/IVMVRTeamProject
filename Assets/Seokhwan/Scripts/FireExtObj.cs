@@ -6,13 +6,14 @@ namespace Oculus.Interaction
     /// <summary>
     /// Removes the game object when it is hit by a ray and the trigger button is pressed.
     /// </summary>
-    public class RayTriggerRemoval : MonoBehaviour
+    public class FireExtObj : MonoBehaviour
     {
         [Tooltip("The interactable to monitor for ray interactions.")]
         [SerializeField, Interface(typeof(IInteractableView))]
         private UnityEngine.Object _interactableView;
         private IInteractableView InteractableView;
         private bool _started = false;
+        public GameObject fireExtinguisher;
 
         protected virtual void Awake()
         {
@@ -53,6 +54,7 @@ namespace Oculus.Interaction
         private void RemoveObject()
         {
             Destroy(gameObject);
+            fireExtinguisher.SetActive(true);
         }
 
         #region Inject
