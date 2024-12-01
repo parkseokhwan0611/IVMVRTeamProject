@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Seokhwan/SeokhwanScene.unity
     guid: 9884eeb4be68d204f89bd82fec97e2b8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Seokhwan/TestScene.unity
     guid: d6a1b34c36f4afd4d80901e2bb54e9d8
   m_configObjects:
