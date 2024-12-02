@@ -22,10 +22,6 @@ public class Healthbar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            curHP -= 10;
-        }
         imsi = (float)curHP/ (float) maxHP;
         HandleHp();
         DamageFromFire();
