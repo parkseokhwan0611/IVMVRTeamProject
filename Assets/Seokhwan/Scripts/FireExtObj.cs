@@ -56,7 +56,7 @@ namespace Oculus.Interaction
         {
             Destroy(gameObject);
             fireExtinguisher.SetActive(true);
-            ray.SetActive(false);
+            //ray.SetActive(false);
         }
 
         #region Inject
