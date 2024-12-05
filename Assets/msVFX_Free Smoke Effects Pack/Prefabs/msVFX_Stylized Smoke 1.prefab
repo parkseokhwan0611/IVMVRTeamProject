@@ -4653,6 +4653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f932d6b96bdf1084eb262b6571ac684e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration: 0.5
   startScale: {x: 0.1, y: 0.1, z: 0.1}
   endScale: {x: 0.2, y: 0.2, z: 0.2}
