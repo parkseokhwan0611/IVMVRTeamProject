@@ -51,5 +51,9 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "IVMVRTeamProject.sln"
+    "dotnet.defaultSolution": "IVMVRTeamProject.sln",
+    "files.associations": {
+        "string": "cpp",
+        "xstring": "cpp"
+    }
 }
