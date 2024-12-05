@@ -8,19 +8,16 @@ public class FireExtinguisher : MonoBehaviour
     public Transform firePoint; // 총알 발사 위치
     public float bulletSpeed = 1f;
     public bool isPressed = false;
+    public static bool isFireExtOn = false;
     // Update is called once per frame
     void Update()
     {
-        float handRight = OVRInput.Get(OVRInput.Axis1D.PrimaryHandTrigger);
-        if(handRight > 0) {
+        float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+        if(handRight > 0 && isFireExtOn == true && !isPressed) {
             StartCoroutine(Water());
             isPressed = true;
         }
-        // if(Input.GetKey(KeyCode.A)) {
-        //     StartCoroutine(Water());
-        //     isPressed = true;
-        // }
-        else {
+        else if(handRight <= 0 && isPressed){
             isPressed = false;
         }
     }
@@ -34,7 +31,7 @@ public class FireExtinguisher : MonoBehaviour
                 rb.velocity = firePoint.forward * bulletSpeed;
             }
             Destroy(bullet, 1f);
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 }
