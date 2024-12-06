@@ -57,7 +57,7 @@ private IEnumerator MoveBackward()
         while (elapsedTime < backwardDuration)
         {
             // Move the monster backward
-            transform.position += backwardDirection * backwardSpeed * Time.deltaTime;
+            player.transform.position += backwardDirection * backwardSpeed * Time.deltaTime;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
