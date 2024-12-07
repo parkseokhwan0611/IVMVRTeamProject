@@ -7,63 +7,66 @@ public class MonsterBehavior : MonoBehaviour
 {
     [SerializeField] private GameObject player; // Reference to the player
     [SerializeField] private float detectionRadius = 5.0f; // Distance at which the monster detects the player
-    private float backwardDuration = 2.0f; // Time the monster moves backward
-    private float backwardSpeed = 10.0f; // Speed of backward movement
-
+    private float stopDuration = 4f; // Time the monster stops after the collision
     private NavMeshAgent navMeshAgent;
-    private bool isMovingBackward = false;
+    private bool isTriggered = false; // Flag to track if the monster is already triggered
+
+    [SerializeField] private Healthbar healthbar; // Reference to the Healthbar script (via Canvas)
 
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
+
+        if (healthbar == null)
+        {
+            Debug.LogError("Healthbar reference is not assigned in the Inspector.");
+        }
     }
 
     void Update()
     {
-        if (player != null && !isMovingBackward)
+        if (player != null && !isTriggered)
         {
-            // Calculate the distance between the monster and the player
             float distance = Vector3.Distance(transform.position, player.transform.position);
 
-            // Check if the player is within detection radius
             if (distance <= detectionRadius)
             {
-                // Set the NavMeshAgent's destination to the player's position
                 navMeshAgent.SetDestination(player.transform.position);
             }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-{
-    if (other.gameObject == player && !isMovingBackward)
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Trigger actiavted");
-        // Start moving backward only if not already in backward motion
-        StartCoroutine(MoveBackward());
-    }
-}
-
-private IEnumerator MoveBackward()
-    {
-    isMovingBackward = true;
-    navMeshAgent.isStopped = true;
-
-        // Calculate the backward direction (opposite of the player's direction)
-        Vector3 backwardDirection = (transform.position - player.transform.position).normalized;
-
-        float elapsedTime = 0f;
-
-        while (elapsedTime < backwardDuration)
+        if (collision.gameObject == player && !isTriggered)
         {
-            // Move the monster backward
-            player.transform.position += backwardDirection * backwardSpeed * Time.deltaTime;
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
+            Debug.Log("Collision activated");
 
-        // Resume normal behavior
-        isMovingBackward = false;
-        navMeshAgent.isStopped = false;
+            if (healthbar != null)
+            {
+                healthbar.DamageFromMonster();
+            }
+
+            // Start the stop logic
+            StartCoroutine(StopMonster());
+        }
     }
+
+    private IEnumerator StopMonster()
+    {
+        isTriggered = true; // Set the flag to true to prevent reactivation
+        navMeshAgent.isStopped = true; // Stop the monster's movement
+        navMeshAgent.velocity = Vector3.zero; // Zero out the velocity to avoid any unwanted movement
+
+        navMeshAgent.enabled = false; // Disable the NavMeshAgent temporarily
+
+        yield return new WaitForSeconds(stopDuration); // Wait for the stop duration
+
+        navMeshAgent.enabled = true; // Re-enable the NavMeshAgent
+        navMeshAgent.isStopped = false; // Resume movement
+        navMeshAgent.velocity = Vector3.zero; // Ensure velocity is zero when resuming
+
+        isTriggered = false; // Reset the flag
+    }
+
 }

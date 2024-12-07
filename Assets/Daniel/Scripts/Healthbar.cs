@@ -49,4 +49,10 @@ public class Healthbar : MonoBehaviour
             }
         }
     }
+
+    public void DamageFromMonster()
+    {
+        curHP -= 20; 
+        curHP = Mathf.Clamp(curHP, 0f, maxHP); 
+    }
 }
