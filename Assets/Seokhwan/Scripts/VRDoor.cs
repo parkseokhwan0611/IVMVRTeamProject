@@ -17,6 +17,8 @@ namespace Oculus.Interaction
         public Animator openandclose;
 		public bool open;
 		public Transform Player;
+        public AudioSource doorOpenAudio;
+        public AudioSource doorCloseAudio;
         protected virtual void Awake()
         {
             InteractableView = _interactableView as IInteractableView;
@@ -57,6 +59,7 @@ namespace Oculus.Interaction
 							if (args.NewState == InteractableState.Select)
 							{
 								StartCoroutine(opening());
+                                doorOpenAudio.Play();
 							}
 						}
 						else
@@ -66,6 +69,7 @@ namespace Oculus.Interaction
 								if (args.NewState == InteractableState.Select)
 								{
 									StartCoroutine(closing());
+                                    doorCloseAudio.Play();
 								}
 						}
 

@@ -38,12 +38,12 @@ public class MonsterBehavior : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, player.transform.position);
 
-            if (distance <= detectionRadius && !isDead)
+            if (distance <= detectionRadius && !isDead && !isAttacked)
             {
                 navMeshAgent.SetDestination(player.transform.position);
                 animator.SetBool("isRun", true);
             }
-            else if(distance > detectionRadius && !isDead) {
+            else if((distance > detectionRadius && !isDead) || isAttacked) {
                 animator.SetBool("isRun", false);
                 navMeshAgent.speed = 0;
             }

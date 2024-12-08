@@ -27,7 +27,7 @@ public class Healthbar : MonoBehaviour
     {
         imsi = (float)curHP/ (float) maxHP;
         HandleHp();
-        DamageFromFire();
+        //DamageFromFire();
     }
 
     private void HandleHp()
