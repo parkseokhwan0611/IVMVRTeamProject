@@ -28,8 +28,7 @@ public class EnemyHpBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.rotation = fixedRotation;
-        //background.transform.rotation = fixedRotation;
+        HpChange();
     }
     void HpChange() {
         hpAmount = monsterBehavior.hp;

@@ -8,16 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Seokhwan/SeokhwanScene.unity
     guid: 9884eeb4be68d204f89bd82fec97e2b8
-  - enabled: 0
+  - enabled: 1
     path: Assets/Seokhwan/TestScene.unity
     guid: d6a1b34c36f4afd4d80901e2bb54e9d8
   - enabled: 0
-    path: Assets/Daniel/Scene/Title_Scene_test.unity
-    guid: d74cf87f14cf931429302d477e0c5f70
-  - enabled: 1
     path: Assets/Daniel/Scene/Title_Scene.unity
-    guid: 16a1c8438c6b0a6469dcfb24657df02e
-  - enabled: 1
+    guid: d74cf87f14cf931429302d477e0c5f70
+  - enabled: 0
     path: Assets/Daniel/Scene/Daniel_Scene_01.unity
     guid: 4962e9742df567547b944cda0f4ae2be
   m_configObjects:
