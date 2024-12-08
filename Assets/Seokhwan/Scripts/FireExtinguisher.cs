@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FireExtinguisher : MonoBehaviour
 {
-    [SerializeField] private Extinguisherbar exbar;
+    public Extinguisherbar exbar;
     public GameObject bulletPrefab; // 총알 프리팹
     public Transform firePoint; // 총알 발사 위치
     public float bulletSpeed = 1f;
@@ -12,6 +12,10 @@ public class FireExtinguisher : MonoBehaviour
     public bool isFireOn = false;
     public static bool isFireExtOn = false;
     // Update is called once per frame
+    void Awake()
+    {
+        exbar = FindObjectOfType<Extinguisherbar>();
+    }
     void Update()
     {
         float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
@@ -29,7 +33,7 @@ public class FireExtinguisher : MonoBehaviour
         }
     }
     IEnumerator Water() {
-        while (isPressed) {
+        while (isPressed && exbar.curHP != 0) {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
@@ -46,8 +50,4 @@ public class FireExtinguisher : MonoBehaviour
             yield return new WaitForSeconds(0.15f);
         }
     }
-}
-
-internal class Extinguisherbarbar
-{
 }

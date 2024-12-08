@@ -7,7 +7,7 @@ public class Extinguisherbar : MonoBehaviour
 {
     [SerializeField] private Slider bar;
     private float maxHP = 180;
-    private float curHP = 180;
+    public float curHP = 180;
     float imsi;
 
     void Awake()
