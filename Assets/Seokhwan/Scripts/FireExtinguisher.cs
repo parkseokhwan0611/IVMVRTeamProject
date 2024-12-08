@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FireExtinguisher : MonoBehaviour
 {
+    [SerializeField] private Extinguisherbarbar exbar;
     public GameObject bulletPrefab; // 총알 프리팹
     public Transform firePoint; // 총알 발사 위치
     public float bulletSpeed = 1f;
