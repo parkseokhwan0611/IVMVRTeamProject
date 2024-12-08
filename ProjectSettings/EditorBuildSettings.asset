@@ -14,10 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Daniel/Scene/Title_Scene_test.unity
     guid: d74cf87f14cf931429302d477e0c5f70
-  - enabled: 0
+  - enabled: 1
     path: Assets/Daniel/Scene/Daniel_Scene_01.unity
     guid: 4962e9742df567547b944cda0f4ae2be
-  - enabled: 1
+  - enabled: 0
     path: Assets/Daniel/Scene/DanielSeokwhan_TestScene.unity
     guid: ae09ab5a5634c6b47941504dddc8d901
   m_configObjects:
