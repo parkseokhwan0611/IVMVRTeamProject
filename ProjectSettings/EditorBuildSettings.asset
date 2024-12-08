@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Seokhwan/TestScene.unity
     guid: d6a1b34c36f4afd4d80901e2bb54e9d8
   - enabled: 0
-    path: Assets/Daniel/Scene/Title_Scene.unity
+    path: Assets/Daniel/Scene/Title_Scene_test.unity
     guid: d74cf87f14cf931429302d477e0c5f70
   - enabled: 0
     path: Assets/Daniel/Scene/Daniel_Scene_01.unity

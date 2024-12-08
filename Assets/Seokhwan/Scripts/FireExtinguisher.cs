@@ -47,3 +47,7 @@ public class FireExtinguisher : MonoBehaviour
         }
     }
 }
+
+internal class Extinguisherbarbar
+{
+}
