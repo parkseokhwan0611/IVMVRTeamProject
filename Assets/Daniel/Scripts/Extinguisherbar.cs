@@ -6,8 +6,10 @@ using UnityEngine.UI;
 public class Extinguisherbar : MonoBehaviour
 {
     [SerializeField] private Slider bar;
-    private float maxHP = 180;
-    public float curHP = 180;
+    private const float MAX = 180f; 
+    private float maxHP = MAX;
+    public float curHP = MAX;
+
     float imsi;
 
     void Awake()
@@ -32,5 +34,10 @@ public class Extinguisherbar : MonoBehaviour
     {
         curHP -= 1;
         curHP = Mathf.Clamp(curHP, 0f, maxHP); 
+    }
+
+    public void FillBar()
+    {
+        maxHP = MAX;
     }
 }
