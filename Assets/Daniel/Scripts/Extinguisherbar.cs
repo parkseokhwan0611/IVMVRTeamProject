@@ -30,6 +30,7 @@ public class Extinguisherbar : MonoBehaviour
 
     public void WaterSprayed()
     {
-        
+        curHP -= 10;
+        curHP = Mathf.Clamp(curHP, 0f, maxHP); 
     }
 }
