@@ -42,7 +42,7 @@ public class FireExtinguisher : MonoBehaviour
             {
                 rb.velocity = firePoint.forward * bulletSpeed;
             }
-            Destroy(bullet, 0.5f);
+            Destroy(bullet, 1f);
             yield return new WaitForSeconds(0.15f);
         }
     }
