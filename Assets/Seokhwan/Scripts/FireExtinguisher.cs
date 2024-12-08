@@ -14,8 +14,8 @@ public class FireExtinguisher : MonoBehaviour
     void Update()
     {
         float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
-        //if(handRight > 0 && isFireExtOn == true) {
-        if(Input.GetMouseButton(0)) {
+        if((handRight > 0 && isFireExtOn == true) || Input.GetMouseButton(0)) {
+        //if(Input.GetMouseButton(0)) {
             isPressed = true;
             if(!isFireOn) {
                 StartCoroutine(Water());
