@@ -14,7 +14,7 @@ public class FireExtinguisher : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryIndexTrigger);
+        float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
         if((handRight > 0 && isFireExtOn == true) || Input.GetMouseButton(0)) {
         //if(Input.GetMouseButton(0)) {
             isPressed = true;
