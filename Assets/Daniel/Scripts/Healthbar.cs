@@ -14,10 +14,13 @@ public class Healthbar : MonoBehaviour
     private float maxHP = 180;
     private float curHP = 180;
     float imsi;
+
     void Awake()
     {
-        hpbar.value = (float) curHP / (float) maxHP;
+        fireObjects = GameObject.FindGameObjectsWithTag("Fire");
+        hpbar.value = (float)curHP / (float)maxHP;
     }
+
 
     // Update is called once per frame
     void Update()
@@ -34,8 +37,6 @@ public class Healthbar : MonoBehaviour
 
     private void DamageFromFire()
     {
-        fireObjects = GameObject.FindGameObjectsWithTag("Fire");
-
         foreach (GameObject fire in fireObjects)
         {
             float distance = Vector3.Distance(player.transform.position, fire.transform.position);
