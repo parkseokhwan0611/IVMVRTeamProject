@@ -12,6 +12,10 @@ public class MonsterBehavior : MonoBehaviour
     private bool isTriggered = false; // Flag to track if the monster is already triggered
 
     [SerializeField] private Healthbar healthbar; // Reference to the Healthbar script (via Canvas)
+    public float hp;
+    public float maxHp;
+    public Transform hudPos;
+    public bool isAttacked;
 
     void Start()
     {
@@ -50,6 +54,19 @@ public class MonsterBehavior : MonoBehaviour
             // Start the stop logic
             StartCoroutine(StopMonster());
         }
+    }
+
+    void OnTriggerEnter(Collider collision) {
+        if(collision.gameObject.tag == "Smoke" && !isAttacked) {
+            hp -= 2.5f;
+            isAttacked = true;
+            StartCoroutine(AttackedCor());
+        }
+    }
+
+    IEnumerator AttackedCor() {
+        yield return new WaitForSeconds(0.1f);
+        isAttacked = false;
     }
 
     private IEnumerator StopMonster()

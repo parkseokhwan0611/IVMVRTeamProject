@@ -63,10 +63,27 @@ namespace Oculus.Interaction
 
         private void HandleTowelPickup()
         {
-            Destroy(gameObject); // Remove the towel object from the scene
+            // 타월을 즉시 안보이게 만듦
+            GetComponent<Renderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            // 타이머 시작
             ResetOrStartTowelIconTimer();
+
+            // 타이머 종료 후 Destroy 실행
+            StartCoroutine(DestroyAfterTimer());
+
+            //gameObject.SetActive(false);
+
         }
 
+        private System.Collections.IEnumerator DestroyAfterTimer()
+        {
+            // 타이머가 종료될 때까지 대기
+            yield return new WaitForSeconds(iconDisplayDuration);
+
+            // 타월 오브젝트 완전 제거
+            Destroy(gameObject);
+        }
         private void ResetOrStartTowelIconTimer()
         {
             if (sharedTowelIconUI == null)
@@ -86,11 +103,15 @@ namespace Oculus.Interaction
 
         private System.Collections.IEnumerator UpdateIconTimer()
         {
+            Debug.Log($"Icon Timer Started. Duration: {_remainingTime}");
             while (_remainingTime > 0)
             {
                 _remainingTime -= Time.deltaTime; // 시간 감소
+                Debug.Log($"Duration: {_remainingTime}");
+
                 yield return null; // 다음 프레임 대기
             }
+            Debug.Log($"Icon Timer Ended.");
 
             _remainingTime = 0; // 종료 시 시간 보정
             sharedTowelIconUI.SetActive(false); // UI 비활성화
