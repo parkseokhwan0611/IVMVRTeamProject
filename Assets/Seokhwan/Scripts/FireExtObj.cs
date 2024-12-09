@@ -8,6 +8,7 @@ namespace Oculus.Interaction
     /// </summary>
     public class FireExtObj : MonoBehaviour
     {
+        [SerializeField] private Extinguisherbar exbar;
         [Tooltip("The interactable to monitor for ray interactions.")]
         [SerializeField, Interface(typeof(IInteractableView))]
         private UnityEngine.Object _interactableView;
@@ -56,6 +57,7 @@ namespace Oculus.Interaction
         {
             Destroy(gameObject);
             fireExtinguisher.SetActive(true);
+            exbar.FillBar();
             FireExtinguisher.isFireExtOn = true;
         }
 
