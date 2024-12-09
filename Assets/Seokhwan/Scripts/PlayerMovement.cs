@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public XRNode inputSource;
     public float speed = 1.0f;
-    public CharacterController character;
+    public Rigidbody rb; // Rigidbody를 사용합니다.
     public Transform cameraRig;
     public Transform headTransform;
 
@@ -27,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        character = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트를 가져옵니다.
+        rb.freezeRotation = true; // 플레이어의 회전은 직접 제어하므로 Rigidbody의 회전을 고정합니다.
         cameraRig = Camera.main.transform.parent; // XR Rig의 부모를 참조합니다.
 
         // AudioSource 생성 및 초기화
@@ -51,8 +52,9 @@ public class PlayerMovement : MonoBehaviour
         Quaternion headYaw = Quaternion.Euler(0, headTransform.eulerAngles.y, 0);
         Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
 
-        // 캐릭터 이동시키기
-        character.Move(direction * speed * Time.fixedDeltaTime);
+        // Rigidbody를 이용한 이동
+        Vector3 move = direction * speed;
+        rb.velocity = new Vector3(move.x, rb.velocity.y, move.z); // X, Z 이동, Y축은 중력에 맡김
 
         // 움직임 상태 업데이트
         if (direction.magnitude > 0.1f)
