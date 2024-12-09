@@ -22,6 +22,15 @@ namespace Oculus.Interaction
         protected virtual void Awake()
         {
             InteractableView = _interactableView as IInteractableView;
+            GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+            if (playerObject != null)
+            {
+                Player = playerObject.transform;
+            }
+            else
+            {
+                Debug.LogWarning("Player object with tag 'Player' not found.");
+            }
         }
 
         protected virtual void Start()
