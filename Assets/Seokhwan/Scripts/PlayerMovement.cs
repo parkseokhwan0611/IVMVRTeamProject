@@ -6,7 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     public XRNode inputSource;
     public float speed = 1.0f;
-    public Rigidbody rb; // Rigidbody를 사용합니다.
+    private float gravity = -9.81f;
+    private Vector3 moveDirection = Vector3.zero;
+    public CharacterController character;
     public Transform cameraRig;
     public Transform headTransform;
 
@@ -27,8 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); // Rigidbody 컴포넌트를 가져옵니다.
-        rb.freezeRotation = true; // 플레이어의 회전은 직접 제어하므로 Rigidbody의 회전을 고정합니다.
+        character = GetComponent<CharacterController>();
         cameraRig = Camera.main.transform.parent; // XR Rig의 부모를 참조합니다.
 
         // AudioSource 생성 및 초기화
@@ -47,32 +48,44 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
+{
+    // 카메라 방향을 기준으로 회전 계산하기
+    Quaternion headYaw = Quaternion.Euler(0, headTransform.eulerAngles.y, 0);
+    Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
+
+    if (character.isGrounded)
     {
-        // 카메라 방향을 기준으로 회전 계산하기
-        Quaternion headYaw = Quaternion.Euler(0, headTransform.eulerAngles.y, 0);
-        Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
+        moveDirection.y = 0; // 바닥에 닿으면 중력 초기화
+    }
+    else
+    {
+        moveDirection.y += gravity * Time.fixedDeltaTime; // 중력 적용
+    }
 
-        // Rigidbody를 이용한 이동
-        Vector3 move = direction * speed;
-        rb.velocity = new Vector3(move.x, rb.velocity.y, move.z); // X, Z 이동, Y축은 중력에 맡김
+    // 이동 방향 설정
+    moveDirection.x = direction.x * speed;
+    moveDirection.z = direction.z * speed;
 
-        // 움직임 상태 업데이트
-        if (direction.magnitude > 0.1f)
+    // 캐릭터 이동시키기
+    character.Move(moveDirection * Time.fixedDeltaTime);
+
+    // 움직임 상태 업데이트
+    if (direction.magnitude > 0.1f)
+    {
+        isMoving = true;
+
+        // 발자국 소리를 일정 간격으로 재생
+        if (Time.time >= nextFootstepTime)
         {
-            isMoving = true;
-
-            // 발자국 소리를 일정 간격으로 재생
-            if (Time.time >= nextFootstepTime)
-            {
-                PlayFootstepSound();
-                nextFootstepTime = Time.time + footstepInterval; // 다음 소리 재생 시간 설정
-            }
-        }
-        else
-        {
-            isMoving = false;
+            PlayFootstepSound();
+            nextFootstepTime = Time.time + footstepInterval; // 다음 소리 재생 시간 설정
         }
     }
+    else
+    {
+        isMoving = false;
+    }
+}
 
     private void PlayFootstepSound()
     {
@@ -127,5 +140,4 @@ public class PlayerMovement : MonoBehaviour
             audioSource.Play();
         }
     }
-    
 }
