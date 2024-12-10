@@ -8,7 +8,7 @@ public class Smokebar : MonoBehaviour
     [SerializeField] private Slider smokebar;
     [SerializeField] GameObject player;
     private float maxHP = 180;
-    private float curHP = 180;
+    public float curHP = 180;
     private float timeAccumulator = 0f; 
     public bool isHand = false;
     public Healthbar healthbar;
