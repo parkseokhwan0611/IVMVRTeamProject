@@ -45,7 +45,7 @@ public class Smokebar : MonoBehaviour
         else if(timeAccumulator >= 1f && isHand && curHP >= 0) {
             timeAccumulator = 0f;
         }
-        else if(curHP < 0 && !isAttacked) {
+        else if(curHP <= 0 && !isAttacked) {
             healthbar.DamageFromFire();
             isAttacked = true;
             StartCoroutine(AttackedCor());

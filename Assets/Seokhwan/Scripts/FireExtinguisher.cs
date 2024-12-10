@@ -22,12 +22,15 @@ public class FireExtinguisher : MonoBehaviour
     {
         float handRight = OVRInput.Get(OVRInput.Axis1D.SecondaryHandTrigger);
         if((handRight > 0 && isFireExtOn == true) || Input.GetMouseButton(0)) {
-        //if(Input.GetMouseButton(0)) {
             isPressed = true;
-            if(!isFireOn) {
+            if(!isFireOn && exbar.curHP > 0) {
                 StartCoroutine(Water());
                 isFireOn = true;
                 sound.Play();
+            }
+            else if(exbar.curHP <= 0 && isFireExtOn) {
+                gameObject.SetActive(false);
+                isFireExtOn = false;
             }
         }
         else {
@@ -39,8 +42,7 @@ public class FireExtinguisher : MonoBehaviour
     
     IEnumerator Water() {
         while (isPressed) {
-            if(exbar.curHP > 0) {
-                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
                 if (exbar != null)
@@ -54,11 +56,6 @@ public class FireExtinguisher : MonoBehaviour
                 }
                 Destroy(bullet, 1f);
                 yield return new WaitForSeconds(0.15f);
-            }
-            else {
-                gameObject.SetActive(false);
-                isFireExtOn = false;
-            }
         }
     }
 }

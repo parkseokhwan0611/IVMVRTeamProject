@@ -12,7 +12,7 @@ public class Healthbar : MonoBehaviour
     private float damageRadius = 2; 
     private float damageCooldown = 0;
     private float maxHP = 180;
-    private float curHP = 180;
+    public float curHP = 180;
     public bool isDead = false;
     public GameObject restartCanvas;
     float imsi;
