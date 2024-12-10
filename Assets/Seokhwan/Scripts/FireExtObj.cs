@@ -56,8 +56,8 @@ namespace Oculus.Interaction
         private void RemoveObject()
         {
             Destroy(gameObject);
-            fireExtinguisher.SetActive(true);
             exbar.FillBar();
+            fireExtinguisher.SetActive(true);
             FireExtinguisher.isFireExtOn = true;
         }
 

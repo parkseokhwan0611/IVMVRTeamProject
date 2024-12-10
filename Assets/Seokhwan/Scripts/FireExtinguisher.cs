@@ -5,6 +5,7 @@ using UnityEngine;
 public class FireExtinguisher : MonoBehaviour
 {
     [SerializeField] private Extinguisherbar exbar;
+    public GameObject fireExtinguisher;
     public GameObject bulletPrefab; // 총알 프리팹
     public Transform firePoint; // 총알 발사 위치
     public float bulletSpeed = 1f;
@@ -29,7 +30,7 @@ public class FireExtinguisher : MonoBehaviour
                 sound.Play();
             }
             else if(exbar.curHP <= 0 && isFireExtOn) {
-                gameObject.SetActive(false);
+                fireExtinguisher.SetActive(false);
                 isFireExtOn = false;
             }
         }
