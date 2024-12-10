@@ -6,6 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
     public XRNode inputSource;
     public float speed = 1.0f;
+    private float gravity = -9.81f;
+    private Vector3 moveDirection = Vector3.zero;
     public CharacterController character;
     public Transform cameraRig;
     public Transform headTransform;
@@ -24,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float footstepInterval = 0.5f; // 발자국 소리 간격
     private float nextFootstepTime = 0f; // 다음 발자국 소리 재생 시간
+    public Healthbar healthbar;
+    public bool isAttacked = false;
 
     void Start()
     {
@@ -46,31 +50,44 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void FixedUpdate()
+{
+    // 카메라 방향을 기준으로 회전 계산하기
+    Quaternion headYaw = Quaternion.Euler(0, headTransform.eulerAngles.y, 0);
+    Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
+
+    if (character.isGrounded)
     {
-        // 카메라 방향을 기준으로 회전 계산하기
-        Quaternion headYaw = Quaternion.Euler(0, headTransform.eulerAngles.y, 0);
-        Vector3 direction = headYaw * new Vector3(inputAxis.x, 0, inputAxis.y);
+        moveDirection.y = 0; // 바닥에 닿으면 중력 초기화
+    }
+    else
+    {
+        moveDirection.y += gravity * Time.fixedDeltaTime; // 중력 적용
+    }
 
-        // 캐릭터 이동시키기
-        character.Move(direction * speed * Time.fixedDeltaTime);
+    // 이동 방향 설정
+    moveDirection.x = direction.x * speed;
+    moveDirection.z = direction.z * speed;
 
-        // 움직임 상태 업데이트
-        if (direction.magnitude > 0.1f)
+    // 캐릭터 이동시키기
+    character.Move(moveDirection * Time.fixedDeltaTime);
+
+    // 움직임 상태 업데이트
+    if (direction.magnitude > 0.1f)
+    {
+        isMoving = true;
+
+        // 발자국 소리를 일정 간격으로 재생
+        if (Time.time >= nextFootstepTime)
         {
-            isMoving = true;
-
-            // 발자국 소리를 일정 간격으로 재생
-            if (Time.time >= nextFootstepTime)
-            {
-                PlayFootstepSound();
-                nextFootstepTime = Time.time + footstepInterval; // 다음 소리 재생 시간 설정
-            }
-        }
-        else
-        {
-            isMoving = false;
+            PlayFootstepSound();
+            nextFootstepTime = Time.time + footstepInterval; // 다음 소리 재생 시간 설정
         }
     }
+    else
+    {
+        isMoving = false;
+    }
+}
 
     private void PlayFootstepSound()
     {
@@ -125,5 +142,17 @@ public class PlayerMovement : MonoBehaviour
             audioSource.Play();
         }
     }
-    
+    //Fire collision
+    void OnTriggerStay(Collider other)
+    {
+        // 트리거 안에 있는 동안 처리
+        if (other.CompareTag("Fire") && !isAttacked)
+        {
+            healthbar.DamageFromFire();
+        }
+    }
+    IEnumerator Attacked() {
+        yield return new WaitForSeconds(0.1f);
+        isAttacked = false;
+    }
 }
