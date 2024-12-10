@@ -15,12 +15,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 inputAxis;
 
     [Tooltip("Footstep audio clip to be played.")]
-    public AudioClip footstepClip; // 발자국 소리 클립
+    //public AudioClip footstepClip; // 발자국 소리 클립
 
-    [Tooltip("Coughing audio clip to be looped.")]
-    public AudioClip coughClip; // 기침 소리 클립
+    //[Tooltip("Coughing audio clip to be looped.")]
+    public AudioSource coughClip; // 기침 소리 클립
+    public AudioSource walkClip;
 
-    private AudioSource audioSource; // AudioSource는 내부적으로 추가
+    //private AudioSource audioSource; // AudioSource는 내부적으로 추가
     private bool isMoving = false; // 플레이어 움직임 상태
     private bool isTowelActive = false; // 타월 효과 활성화 상태
 
@@ -35,8 +36,8 @@ public class PlayerMovement : MonoBehaviour
         cameraRig = Camera.main.transform.parent; // XR Rig의 부모를 참조합니다.
 
         // AudioSource 생성 및 초기화
-        audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false; // 시작 시 자동 재생 안 함
+        //audioSource = gameObject.AddComponent<AudioSource>();
+        //audioSource.playOnAwake = false; // 시작 시 자동 재생 안 함
 
         // 기침 소리 재생 시작
         StartCoughSound();
@@ -92,10 +93,11 @@ public class PlayerMovement : MonoBehaviour
     private void PlayFootstepSound()
     {
         // 발자국 소리를 한 번 재생
-        if (footstepClip != null)
-        {
-            audioSource.PlayOneShot(footstepClip);
-        }
+        //if (footstepClip != null)
+        //{
+            //audioSource.PlayOneShot(footstepClip);
+            walkClip.Play();
+        //}
     }
 
     /// <summary>
@@ -108,10 +110,10 @@ public class PlayerMovement : MonoBehaviour
         isTowelActive = true;
 
         // 기침 소리 중지
-        if (audioSource.isPlaying && audioSource.clip == coughClip)
-        {
-            audioSource.Stop();
-        }
+        //if (audioSource.isPlaying && audioSource.clip == coughClip)
+        //{
+            coughClip.Stop();
+        //}
     }
 
     /// <summary>
@@ -124,10 +126,10 @@ public class PlayerMovement : MonoBehaviour
         isTowelActive = false;
 
         // 기침 소리 재개
-        if (coughClip != null && !audioSource.isPlaying)
-        {
+        //if (coughClip != null && !audioSource.isPlaying)
+        //{
             StartCoughSound();
-        }
+        //}
     }
 
     /// <summary>
@@ -135,11 +137,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void StartCoughSound()
     {
-        if (coughClip != null && !isTowelActive)
+        if (!isTowelActive)
         {
-            audioSource.clip = coughClip;
-            audioSource.loop = true;
-            audioSource.Play();
+            //audioSource.clip = coughClip;
+            //audioSource.loop = true;
+            coughClip.Play();
         }
     }
     //Fire collision
