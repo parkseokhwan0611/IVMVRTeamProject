@@ -39,7 +39,7 @@ public class FireExtinguisher : MonoBehaviour
     
     IEnumerator Water() {
         while (isPressed) {
-            if(exbar.curHP >= 0) {
+            if(exbar.curHP > 0) {
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
                 Rigidbody rb = bullet.GetComponent<Rigidbody>();
