@@ -38,6 +38,6 @@ public class Extinguisherbar : MonoBehaviour
 
     public void FillBar()
     {
-        maxHP = MAX;
+        curHP = MAX;
     }
 }
