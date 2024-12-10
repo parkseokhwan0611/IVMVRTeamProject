@@ -29,6 +29,7 @@ namespace Oculus.Interaction
         private Coroutine _iconTimerCoroutine;
         private float _remainingTime; // Tracks the remaining active time of the icon
         public PlayerMovement playerMovement;
+        public Smokebar smokebar;
         protected virtual void Awake()
         {
             InteractableView = _interactableView as IInteractableView;
@@ -79,6 +80,7 @@ namespace Oculus.Interaction
             // 타월을 즉시 안보이게 만듦
             GetComponent<Renderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
+            smokebar.Handkerchief();
 
             // 타이머 시작
             ResetOrStartTowelIconTimer();
