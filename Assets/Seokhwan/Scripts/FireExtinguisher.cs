@@ -44,18 +44,16 @@ public class FireExtinguisher : MonoBehaviour
         while (isPressed) {
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
 
-                Rigidbody rb = bullet.GetComponent<Rigidbody>();
-                if (exbar != null)
-                {
-                    exbar.WaterSprayed();
-                }
+            Rigidbody rb = bullet.GetComponent<Rigidbody>();
+            if (exbar != null) {
+                exbar.WaterSprayed();
+            }
                 
-                if (rb != null)
-                {
-                    rb.velocity = firePoint.forward * bulletSpeed;
-                }
-                Destroy(bullet, 1f);
-                yield return new WaitForSeconds(0.15f);
+            if (rb != null) {
+                rb.velocity = firePoint.forward * bulletSpeed;
+            }
+            Destroy(bullet, 1f);
+            yield return new WaitForSeconds(0.15f);
         }
     }
 }
