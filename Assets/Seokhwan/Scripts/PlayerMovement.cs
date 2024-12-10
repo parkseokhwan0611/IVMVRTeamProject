@@ -26,6 +26,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float footstepInterval = 0.5f; // 발자국 소리 간격
     private float nextFootstepTime = 0f; // 다음 발자국 소리 재생 시간
+    public Healthbar healthbar;
+    public bool isAttacked = false;
 
     void Start()
     {
@@ -139,5 +141,18 @@ public class PlayerMovement : MonoBehaviour
             audioSource.loop = true;
             audioSource.Play();
         }
+    }
+    //Fire collision
+    void OnTriggerStay(Collider other)
+    {
+        // 트리거 안에 있는 동안 처리
+        if (other.CompareTag("Fire") && !isAttacked)
+        {
+            healthbar.DamageFromFire();
+        }
+    }
+    IEnumerator Attacked() {
+        yield return new WaitForSeconds(0.1f);
+        isAttacked = false;
     }
 }
