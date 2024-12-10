@@ -26,6 +26,8 @@ namespace Oculus.Interaction
         public AudioClip pickupSound; // The sound effect to play
 
         private AudioSource _audioSource;
+        public Smokebar smokebar;
+        public Healthbar healthbar;
 
         protected virtual void Awake()
         {
@@ -78,6 +80,8 @@ namespace Oculus.Interaction
             // Disable the renderer and collider to "hide" the object
             GetComponent<Renderer>().enabled = false;
             GetComponent<Collider>().enabled = false;
+            healthbar.AidBox();
+            smokebar.AidBox();
 
             // Trigger the healing effect
             if (healingEffect != null)

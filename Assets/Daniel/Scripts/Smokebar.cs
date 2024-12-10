@@ -7,9 +7,12 @@ public class Smokebar : MonoBehaviour
 {
     [SerializeField] private Slider smokebar;
     [SerializeField] GameObject player;
-    private float maxHP = 60;
-    private float curHP = 60;
+    private float maxHP = 180;
+    private float curHP = 180;
     private float timeAccumulator = 0f; 
+    public bool isHand = false;
+    public Healthbar healthbar;
+    private bool isAttacked = false;
     float imsi;
     void Awake()
     {
@@ -29,17 +32,38 @@ public class Smokebar : MonoBehaviour
         smokebar.value = Mathf.Lerp(smokebar.value, imsi, Time.deltaTime * 10);
     }
 
-     private void UpdateTime()
+    private void UpdateTime()
     {
         timeAccumulator += Time.deltaTime;
 
-        if (timeAccumulator >= 1f)
+        if (timeAccumulator >= 1f && !isHand && curHP >= 0)
         {
             curHP -= 1f; 
             curHP = Mathf.Clamp(curHP, 0f, maxHP); 
-            timeAccumulator = 0f; 
+            timeAccumulator = 0f;
         }
-
-
+        else if(timeAccumulator >= 1f && isHand && curHP >= 0) {
+            timeAccumulator = 0f;
+        }
+        else if(curHP < 0 && !isAttacked) {
+            healthbar.DamageFromFire();
+            isAttacked = true;
+            StartCoroutine(AttackedCor());
+        }
+    }
+    public void AidBox() {
+        curHP = maxHP;
+    }
+    public void Handkerchief() {
+        isHand = true;
+        StartCoroutine(HandKerchiefCor());
+    }
+    IEnumerator HandKerchiefCor() {
+        yield return new WaitForSeconds(20);
+        isHand = false;
+    }
+    IEnumerator AttackedCor() {
+        yield return new WaitForSeconds(0.1f);
+        isAttacked = false;
     }
 }

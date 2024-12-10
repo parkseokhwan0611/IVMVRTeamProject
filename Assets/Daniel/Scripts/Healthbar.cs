@@ -60,7 +60,9 @@ public class Healthbar : MonoBehaviour
         restartCanvas.SetActive(true);
         RestartScript.isUiOn = true;
     }
-
+    public void AidBox() {
+        curHP = maxHP;
+    }
     public void DamageFromMonster()
     {
         curHP -= 20; 
