@@ -11,6 +11,7 @@ public class RestartScript : MonoBehaviour
          if (OVRInput.GetDown(OVRInput.Button.One) && isUiOn == true)
         {
             SceneManager.LoadScene("Daniel_Scene_01");
+            isUiOn = false;
         }
     }
 }
